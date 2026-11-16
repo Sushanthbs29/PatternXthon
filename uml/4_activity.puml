@@ -1,0 +1,20 @@
+@startuml
+start
+:Responder submits plate and reason;
+if (role is emergency/admin?) then (yes)
+ if (emergency bay vacant?) then (yes)
+  :assign emergency bay;
+ elseif (any bay vacant?) then (yes)
+  :assign nearest vacant bay;
+ elseif (standard reservation exists?) then (yes)
+  :pre-empt reservation, assign its bay;
+ else (no)
+  :return 409 no capacity; stop
+ endif
+ :create priority booking, mark slot reserved;
+ :show bay to responder;
+else (no)
+ :return 403;
+endif
+stop
+@enduml

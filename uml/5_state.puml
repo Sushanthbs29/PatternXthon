@@ -1,0 +1,9 @@
+@startuml
+[*] --> Vacant
+Vacant --> Occupied : sensor detects vehicle
+Occupied --> Vacant : vehicle leaves
+Vacant --> Reserved : booking / emergency allocation
+Reserved --> Vacant : booking cancelled
+Reserved --> Occupied : driver arrives
+Reserved --> Vacant : pre-empted (slot reassigned as Reserved)
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+actor Driver; participant "React UI" as UI; participant "FastAPI" as API; database DB
+Driver -> UI: choose green slot, enter plate
+UI -> API: POST /api/bookings (JWT)
+API -> API: verify token (AuthGuard)
+API -> DB: SELECT slot
+alt slot vacant
+ API -> DB: slot=reserved; INSERT booking
+ API --> UI: 200 booking
+ UI --> Driver: confirmation
+else taken
+ API --> UI: 409 slot taken
+ UI --> Driver: error, pick another
+end
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+node "Browser" { component "React + Tailwind SPA" as SPA; component "api.js Facade" as F }
+node "Server" { component "FastAPI routers" as R; component "Auth/RBAC guard" as G; component "Forecast + Assistant" as AI; component "Occupancy simulator" as S }
+database "SQLite / PostgreSQL" as DB
+cloud "Camera / IoT sensors (future)" as IOT
+SPA --> F; F --> R : HTTPS JSON + JWT
+R --> G; R --> AI; R --> DB; S --> DB; IOT ..> S : replaces simulator
+@enduml

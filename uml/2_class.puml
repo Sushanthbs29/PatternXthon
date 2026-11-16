@@ -1,0 +1,16 @@
+@startuml
+class User {id; name; email; pw; role}
+class Area {id; name}
+class Slot {id; code; status; kind}
+class Booking {id; plate; hours; status; priority; created}
+class Forecast {+forecast(current): hourly[]}
+class AllocationStrategy <<interface>> {+allocate(): Slot}
+class EmergencyBayStrategy; class VacantBayStrategy; class PreemptStrategy
+class AuthGuard {+role(roles)}
+Area "1" o-- "*" Slot
+User "1" -- "*" Booking
+Slot "1" -- "*" Booking
+AllocationStrategy <|.. EmergencyBayStrategy; AllocationStrategy <|.. VacantBayStrategy; AllocationStrategy <|.. PreemptStrategy
+AuthGuard ..> User
+Forecast ..> Slot : reads occupancy
+@enduml

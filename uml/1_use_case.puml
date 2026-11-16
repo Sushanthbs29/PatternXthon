@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+actor Driver; actor Responder; actor Admin
+rectangle "ParkMind AI" {
+ usecase "Register / Log in" as L; usecase "View live availability" as V; usecase "View parking map" as M
+ usecase "View AI forecast" as F; usecase "Ask AI assistant" as A; usecase "Book / cancel slot" as B
+ usecase "Emergency allocation" as E; usecase "Manage users & roles" as U; usecase "Manage areas" as P; usecase "View reports" as R
+}
+Driver --> L; Driver --> V; Driver --> M; Driver --> F; Driver --> A; Driver --> B
+Responder --> L; Responder --> E; Responder --> V
+Admin --> U; Admin --> P; Admin --> R; Admin --> E
+Admin --|> Driver
+B ..> L : <<include>>
+@enduml
